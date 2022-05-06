@@ -1,0 +1,32 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.1.32421.90
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MovieChallenge.Api", "MovieChallenge.Api.csproj", "{9E8F6893-5A87-49BA-BD0F-15F41B15A9F6}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Core", "Core", "{3179BE62-6B29-4A29-A3B1-D925662378C0}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Api", "Api", "{DBF50E0E-D3D0-426C-A5BA-AFB7EFA4D9B9}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{9E8F6893-5A87-49BA-BD0F-15F41B15A9F6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9E8F6893-5A87-49BA-BD0F-15F41B15A9F6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9E8F6893-5A87-49BA-BD0F-15F41B15A9F6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9E8F6893-5A87-49BA-BD0F-15F41B15A9F6}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{9E8F6893-5A87-49BA-BD0F-15F41B15A9F6} = {DBF50E0E-D3D0-426C-A5BA-AFB7EFA4D9B9}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {033D2D8A-C01E-4D7E-9FD6-164A56A979FA}
+	EndGlobalSection
+EndGlobal
