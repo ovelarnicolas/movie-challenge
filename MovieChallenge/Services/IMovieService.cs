@@ -1,6 +1,6 @@
 ﻿using MovieChallenge.Models;
 
-namespace MovieChallenge.Services
+namespace MovieChallenge.Api.Services
 {
     public interface IMovieService
     {

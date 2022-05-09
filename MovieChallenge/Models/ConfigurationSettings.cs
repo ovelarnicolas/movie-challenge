@@ -1,9 +1,9 @@
 ﻿namespace MovieChallenge.Models
 {
-    public class MongoDBSettings : IMongoDBSettings
+    public class ConfigurationSettings : IConfigurationSettings
     {
         public string ConnectionURI { get; set; } = null!;
         public string DatabaseName { get; set; } = null!;
-        public string CollectionName { get; set; } = null!;
+        public string JwtKey { get; set; } = null!;
     }
 }

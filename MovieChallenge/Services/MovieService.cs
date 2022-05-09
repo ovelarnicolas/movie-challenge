@@ -1,16 +1,17 @@
 ﻿using MovieChallenge.Models;
 using MongoDB.Driver;
+using MovieChallenge.Api.Models;
 
-namespace MovieChallenge.Services
+namespace MovieChallenge.Api.Services
 {
     public class MovieService : IMovieService
     {
         private readonly IMongoCollection<Movie> _movies;
 
-        public MovieService(IMongoDBSettings mongoDBSettings, IMongoClient mongoClient)
+        public MovieService(IConfigurationSettings configurationSettings, IMongoClient mongoClient)
         {
-            var database = mongoClient.GetDatabase(mongoDBSettings.DatabaseName);
-            _movies = database.GetCollection<Movie>(mongoDBSettings.CollectionName);
+            var database = mongoClient.GetDatabase(configurationSettings.DatabaseName);
+            _movies = database.GetCollection<Movie>(Constants.MOVIE_COLLECTION);
         }
 
         public async Task CreateAsync(Movie movie) => await _movies.InsertOneAsync(movie);

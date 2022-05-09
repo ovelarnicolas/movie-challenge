@@ -1,6 +1,7 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
+using MovieChallenge.Api.Services;
 using MovieChallenge.Models;
-using MovieChallenge.Services;
 
 namespace MovieChallenge.Controllers
 {
@@ -13,6 +14,7 @@ namespace MovieChallenge.Controllers
         public MovieController(IMovieService movieService) => _movieService = movieService;
 
         [HttpGet]
+        [Authorize]
         public async Task<List<Movie>> Get() => await _movieService.GetAllAsync();
 
 

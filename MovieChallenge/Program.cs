@@ -1,19 +1,24 @@
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.Extensions.Options;
+using Microsoft.IdentityModel.Tokens;
 using MongoDB.Driver;
+using MovieChallenge.Api.Services;
 using MovieChallenge.Models;
-using MovieChallenge.Services;
+using System.Text;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 
-builder.Services.Configure<MongoDBSettings>(builder.Configuration.GetSection(nameof(MongoDBSettings)));
+builder.Services.Configure<ConfigurationSettings>(builder.Configuration.GetSection(nameof(ConfigurationSettings)));
 
-builder.Services.AddSingleton<IMongoDBSettings>(s => s.GetRequiredService<IOptions<MongoDBSettings>>().Value);
+builder.Services.AddSingleton<IConfigurationSettings>(s => s.GetRequiredService<IOptions<ConfigurationSettings>>().Value);
 
-builder.Services.AddSingleton<IMongoClient>(s => new MongoClient(builder.Configuration.GetValue<string>("MongoDBSettings:ConnectionURI")));
+builder.Services.AddSingleton<IMongoClient>(s => new MongoClient(builder.Configuration.GetValue<string>("ConfigurationSettings:ConnectionURI")));
 
 builder.Services.AddScoped<IMovieService, MovieService>();
+
+builder.Services.AddScoped<IUserService, UserService>();
 
 builder.Services.AddControllers();
 
@@ -21,8 +26,6 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 
 builder.Services.AddSwaggerGen();
-
-
 
 builder.Services.AddCors(options =>
 {
@@ -36,6 +39,24 @@ builder.Services.AddCors(options =>
     });
 });
 
+builder.Services.AddAuthentication(x =>
+{
+    x.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+    x.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+})
+  .AddJwtBearer(x =>
+  {
+      x.RequireHttpsMetadata = false;
+      x.SaveToken = true;
+      x.TokenValidationParameters = new TokenValidationParameters
+      {
+          ValidateIssuerSigningKey = true,
+          IssuerSigningKey = new SymmetricSecurityKey(Encoding.ASCII.GetBytes(builder.Configuration.GetValue<string>("ConfigurationSettings:JwtKey"))),
+          ValidateIssuer = false,
+          ValidateAudience = false,
+      };
+  });
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -48,6 +69,8 @@ if (app.Environment.IsDevelopment())
 app.UseHttpsRedirection();
 
 app.UseCors();
+
+app.UseAuthentication();
 
 app.UseAuthorization();
 
